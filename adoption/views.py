@@ -10,5 +10,10 @@ class AdoptionList(APIView):
         serializer = AdoptionSerialiazer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
+            return Response(
+                {
+                    'errors': serializer.errors,
+                    'message': 'Houveram erros de validação'
+                },
+                status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
