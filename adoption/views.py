@@ -1,4 +1,3 @@
-from xmlrpc.client import ResponseError
 from rest_framework.views import APIView
 from .serializers import AdoptionSerialiazer
 from rest_framework.response import Response
@@ -10,10 +9,11 @@ class AdoptionList(APIView):
         serializer = AdoptionSerialiazer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(
-                {
-                    'errors': serializer.errors,
-                    'message': 'Houveram erros de validação'
-                },
-                status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(
+            {
+                'errors': serializer.errors,
+                'message': 'Houveram erros de validação',
+            },
+            status=HTTP_400_BAD_REQUEST,
+        )
