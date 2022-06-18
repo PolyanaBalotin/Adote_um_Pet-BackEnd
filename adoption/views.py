@@ -12,8 +12,8 @@ class AdoptionList(APIView):
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(
             {
-                'errors': serializer.errors,
-                'message': 'Houveram erros de validação',
+                "errors": serializer.errors,
+                "message": "Houveram erros de validação",
             },
             status=HTTP_400_BAD_REQUEST,
         )
